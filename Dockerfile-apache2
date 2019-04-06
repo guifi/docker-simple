@@ -32,5 +32,6 @@ RUN mkfifo /var/spool/postfix/public/pickup
 ADD confs/cron/guifimaps-cron /etc/cron.d/guifimaps
 RUN chmod 0644 /etc/cron.d/guifimaps
 
+RUN mkdir /var/www/guifimaps/cgi-bin
 RUN cp /usr/bin/mapserv /var/www/guifimaps/cgi-bin
 RUN chmod +x /var/www/guifimaps/cgi-bin/mapserv

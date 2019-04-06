@@ -56,6 +56,7 @@ services:
     volumes:
     - ./www:/var/www:rw
     - ./confs/php/apache2/php.ini:/usr/local/etc/php/php.ini:rw
+    - ./confs/guifimaps/refresh.php:/var/www/guifimaps/refresh.php:rw
     - ./confs/apache2/sites-available:/etc/apache2/sites-available:rw
     - ./confs/apache2/conf-available:/etc/apache2/conf-available:rw
     - ./logs/apache2:/var/log/apache2:rw
