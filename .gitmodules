@@ -1,0 +1,12 @@
+[submodule "www/guifimaps"]
+	path = www/guifimaps
+	url = https://github.com/guifi/guifimaps.git
+[submodule "www/drupal-6.38/sites/all/modules/guifi"]
+	path = www/drupal-6.38/sites/all/modules/guifi
+	url = https://github.com/guifi/drupal-guifi.git
+[submodule "www/drupal-6.38/sites/all/modules/budgets"]
+	path = www/drupal-6.38/sites/all/modules/budgets
+	url = https://github.com/guifi/drupal-budgets.git
+[submodule "www/drupal-6.38/sites/all/themes/theme_guifinet2011"]
+	path = www/drupal-6.38/sites/all/themes/theme_guifinet2011
+	url = https://github.com/guifi/drupal-theme_guifinet2011.git

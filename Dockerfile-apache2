@@ -1,0 +1,36 @@
+FROM php:5.6-apache
+
+## REPLACE "webserver.domain.xx"
+RUN echo "postfix postfix/mailname string webserver.domain.xx" | debconf-set-selections
+RUN echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections
+
+RUN apt-get update && apt-get dist-upgrade -y && apt-get install -y postfix nano wget libpng-dev mapserver-bin gdal-bin cron
+
+# Copy PHP configuration
+# Edit docker/php.ini and customize it to your needs
+ADD confs/php/apache2/php.ini /usr/local/etc/php/php.ini
+
+# Install PHP extensions
+RUN docker-php-ext-install mysql
+RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install pdo
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install gd
+
+ADD confs/apache2/sites-available /etc/apache2/sites-available
+ADD confs/apache2/conf-available /etc/apache2/conf-available
+
+# Enable new site
+RUN a2enmod rewrite ssl headers cgid
+
+RUN mkdir -p /var/www/drupal
+RUN a2ensite 000-default.conf default-ssl.conf
+RUN apache2ctl restart
+
+RUN mkfifo /var/spool/postfix/public/pickup
+
+ADD confs/cron/guifimaps-cron /etc/cron.d/guifimaps
+RUN chmod 0644 /etc/cron.d/guifimaps
+
+RUN cp /usr/bin/mapserv /var/www/guifimaps/cgi-bin
+RUN chmod +x /var/www/guifimaps/cgi-bin/mapserv

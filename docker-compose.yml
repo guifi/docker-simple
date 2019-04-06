@@ -1,0 +1,64 @@
+version: "3.0"
+
+networks:
+  xarxa-simple:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.6.0.0/24
+
+services:
+  mysql-simple:
+    container_name: mysql-simple
+    environment:
+      MYSQL_DATABASE: drupal
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: GUIFI
+      MYSQL_USER: drupal
+      MYSQL_PASSWORD: GUIFI
+    image: mariadb:10.0.35
+    ports:
+    - 3306/tcp
+    restart: always
+    volumes:
+#    - ./confs/mysql/my.cnf:/etc/mysql/conf.d/my.cnf:rw
+    - ./database:/var/lib/mysql:rw
+    - ./logs/mysql:/var/log/mysql:rw
+    networks:
+      xarxa-simple:
+        ipv4_address: 10.6.0.3
+
+  phpmyadmin-simple:
+    container_name: phpmyadmin-simple
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_HOST=mysql-simple
+    depends_on:
+    - mysql-simple
+    restart: always
+    ports:
+      - "18002:80"
+    networks:
+      xarxa-simple:
+        ipv4_address: 10.6.0.4
+
+  apache2-simple:
+    container_name: apache2-simple
+    build:
+      context: .
+      dockerfile: Dockerfile-apache2
+    depends_on:
+    - mysql-simple
+    ports:
+    - 18001:80/tcp
+    - 18443:443/tcp
+    volumes:
+    - ./www:/var/www:rw
+    - ./confs/php/apache2/php.ini:/usr/local/etc/php/php.ini:rw
+    - ./confs/apache2/sites-available:/etc/apache2/sites-available:rw
+    - ./confs/apache2/conf-available:/etc/apache2/conf-available:rw
+    - ./logs/apache2:/var/log/apache2:rw
+    networks:
+      xarxa-simple:
+        ipv4_address: 10.6.0.2
