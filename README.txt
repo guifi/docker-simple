@@ -5,6 +5,7 @@ Install docker compose: https://docs.docker.com/compose/install/
 
 ## Clone the repository: DOCKER-SIMPLE together with the submodules: drupal-guifi, drupal-budgets, theme_guifinet2011 and guifimaps.
 git clone --recurse-submodules https://github.com/guifi/docker-simple.git
+cd docker-simple
 
 ## Build the composition.
 sudo docker-compose build

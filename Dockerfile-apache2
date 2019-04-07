@@ -33,3 +33,7 @@ ADD confs/guifimaps/refresh.php /var/www/guifimaps/refresh.php
 ADD confs/cron/guifimaps-cron /etc/cron.d/guifimaps
 RUN chmod 0644 /etc/cron.d/guifimaps
 
+# Change CMD to have cron running
+RUN echo "#!/bin/sh\ncron\n/usr/local/bin/apache2-foreground" > /usr/bin/run
+RUN chmod u+x /usr/bin/run
+CMD ["run"]
