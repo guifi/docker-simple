@@ -1,1 +1,1 @@
-*/5 * * * * cd /var/www/guifimaps; /usr/local/bin/php refresh.php > /dev/null 2>&1; cd data; rm -rf dlinks/*; rm -rf dnodes/*; /usr/bin/ogr2ogr -f "ESRI Shapefile" dlinks dlinks.gml; /usr/bin/ogr2ogr -f "ESRI Shapefile" dnodes dnodes.gml
+*/5 * * * *	root	cd /var/www/guifimaps; /usr/local/bin/php refresh.php > /dev/null 2>&1; cd data; rm -rf dlinks/*; rm -rf dnodes/*; /usr/bin/ogr2ogr -f "ESRI Shapefile" dlinks dlinks.gml; /usr/bin/ogr2ogr -f "ESRI Shapefile" dnodes dnodes.gml
