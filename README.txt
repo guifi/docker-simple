@@ -29,19 +29,20 @@ go to:
   Database username: drupal
   Database password: GUIFI
   unfold the Advanced option
-  Replace "Database host" from "localhost" to "mysql-simple or 10.6.0.3"
+  Change "Database host" from "localhost" to "mysql-simple or 10.6.0.3"
 
   When drupal is configured vist : http://YOUR_DOCKER_SERVER:18001/admin/settings/error-reporting
-  Replace "Error reporting:" to Write errors to the log.
+  Change "Error reporting:" from "Write errors to the log and to the screen" to "Write errors to the log" write this to avoid displaying errors / warnings on the screen.
  
   Then you can enable the "guifi.net" module in http://YOUR_DOCKER_SERVER:18001/admin/build/modules.
-  Create your first ZONE without "Parent zone" at http://YOUR_DOCKER_SERVER:18001/node/add/guifi-zone
-  Get the node ID  (XXX) from the new created master zone ( http://YOUR_DOCKER_SERVER:18001/node/XXX ).
-  If the ID is different from 1, edit the file confs/guifimaps/refresh.php and set the variable: $rootZone the value of XXX
 
   Go to http://YOUR_DOCKER_SERVER:18001/admin/settings/guifi
    set your own "Key for Google Maps API"
    and "URL for WMS service" to http://YOUR_DOCKER_SERVER:18001/cgi-bin/mapserv?map=/var/www/guifimaps/GMap.map
+
+  Create your first ZONE without "Parent zone" at http://YOUR_DOCKER_SERVER:18001/node/add/guifi-zone
+  Get the node ID  (XXX) from the new created master zone ( http://YOUR_DOCKER_SERVER:18001/node/XXX ).
+  If the ID is different from 1, edit the file confs/guifimaps/refresh.php and set the variable: $rootZone the value of XXX
 
   Now you can create child zones and first nodes and devices. A CRON job will update the WMS layer every 5 minutes.
 
