@@ -29,7 +29,7 @@ RUN apache2ctl restart
 
 RUN mkfifo /var/spool/postfix/public/pickup
 
-ADD confs/guifimaps/refresh.php /var/www/guifimaps/refresh.php
+
 ADD confs/cron/guifimaps-cron /etc/cron.d/guifimaps
 RUN chmod 0644 /etc/cron.d/guifimaps
 
@@ -37,3 +37,6 @@ RUN chmod 0644 /etc/cron.d/guifimaps
 RUN echo "#!/bin/sh\ncron\n/usr/local/bin/apache2-foreground" > /usr/bin/run
 RUN chmod u+x /usr/bin/run
 CMD ["run"]
+
+ADD confs/guifimaps/refresh.php /var/www/guifimaps/refresh.php
+
